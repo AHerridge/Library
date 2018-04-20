@@ -1,0 +1,73 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    #set($isAdmin = $adminService.isAdmin($user))
+
+    #if($isAdmin)
+        #set($contracts = $contractService.getAll())
+    #else
+        #set($contracts = $contractService.get($user))
+    #end
+
+<div class="panel-group" style="margin: 0;">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				Contracts
+				<span class="badge">$contracts.size()</span>
+			</h4>
+		</div>
+		<div class="panel-body">
+			<table class="table table-hover" id="contract-table">
+				<thead>
+					<tr>
+                        #if($isAdmin)
+							<th onclick="sortTable('contract-table', 0)">Name</th>
+							<th onclick="sortTable('contract-table', 1)">Title</th>
+							<th onclick="sortTable('contract-table', 2)">Due date</th>
+							<th></th>
+                        #else
+							<th onclick="sortTable('contract-table', 0)">Title</th>
+							<th onclick="sortTable('contract-table', 1)">Due date</th>
+                        #end
+					</tr>
+				</thead>
+				<tbody>
+                    #foreach($contract in $contracts)
+						<tr
+                            #if($contract.dueDate.isBefore($date))
+									class="bg-danger"
+                            #elseif($contract.dueDate.equals($date))
+									class="bg-warning"
+                            #end
+						>
+                            #if($isAdmin)
+								<td>$contract.userName</td>
+								<td>
+									<a href="$WebPath.getBOOKS()$contract.bookId">$contract.bookTitle</a>
+								</td>
+								<td>$contract.dueDate</td>
+								<td>
+									<form action="$WebPath.getREMOVE_CONTRACT()" method="post">
+										<input type="hidden" name="userId" value="$contract.userId"/>
+										<input type="hidden" name="bookId" value="$contract.bookId"/>
+										<button class="btn btn-sm btn-danger"
+										        style="border-style: solid; border-width: 1px; border-color: black;">X
+										</button>
+									</form>
+								</td>
+                            #else
+								<td>
+									<a href="$WebPath.getBOOKS()$contract.bookId">$contract.bookTitle</a>
+								</td>
+								<td>$contract.dueDate</td>
+                            #end
+						</tr>
+                    #end
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+## WAITING LIST
+#end

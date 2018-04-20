@@ -1,0 +1,8 @@
+#* @implicitly included *#
+#* @vtlvariable name="WebPath" type="com.aherridge.library.util.Path.Web" *#
+#* @vtlvariable name="user" type="com.aherridge.library.user.User" *#
+#* @vtlvariable name="books" type="java.lang.Iterable<com.aherridge.library.book.Book>" *#
+#* @vtlvariable name="book" type="com.aherridge.library.book.Book" *#
+#* @vtlvariable name="contractService" type="com.aherridge.library.contracts.ContractService" *#
+#* @vtlvariable name="adminService" type="com.aherridge.library.permissions.AdminService" *#
+#* @vtlvariable name="date" type="java.time.LocalDate" *#

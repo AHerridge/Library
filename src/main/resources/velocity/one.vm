@@ -1,0 +1,44 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<style>
+    div {
+        text-align: center;
+    }
+</style>
+    #if($book)
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="bookCover">
+                <img src="$!book.imageLink"
+                     alt="$!book.title"
+                     style="text-align: center; margin: auto;">
+            </div>
+            #if(!$adminService.isAdmin($user))
+                #if($contractService.isBorrowing($user, $book))
+                    <form method="post" action="return/">
+                        <input class="btn btn-primary btn-block" type="submit" id="return" value="Return">
+                    </form>
+                #else
+                    <form method="post" action="checkout/">
+                        <input class="btn btn-primary btn-block" type="submit" id="checkout" value="Checkout">
+                    </form>
+                #end
+            #end
+        </div>
+        <div class="col-sm-8">
+            <div class="bookInfo">
+                <h1>$!book.title</h1>
+                <h2>$!book.authors</h2>
+            </div>
+        </div>
+    </div>
+    <h3>$!book.description</h3>
+    #else
+    <h1 style="text-align: center">BOOK NOT FOUND</h1>
+        #if($adminService.isAdmin($user))
+        <a href="$WebPath.getBOOKS()$WebPath.getADD_BOOK()">
+            <button class="btn btn-primary btn-block">Add Book</button>
+        </a>
+        #end
+    #end
+#end

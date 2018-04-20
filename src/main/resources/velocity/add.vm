@@ -1,0 +1,33 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<form method="post" action="$WebPath.getBOOKS()$WebPath.getADD_BOOK()" style="text-align: center">
+    <h1>Manual Book Entry</h1>
+
+    <div class="form-group">
+        <label for="id">Isbn:</label>
+        <input type="text" class="form-control" name="id" placeholder="" value="" required>
+    </div>
+
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" name="title" placeholder="" value="" required>
+    </div>
+
+    <div class="form-group">
+        <label for="id">Authors (comma seperated):</label>
+        <input type="text" class="form-control" name="authors" placeholder="" value="" required>
+    </div>
+
+    <div class="form-group">
+        <label for="id">Description:</label>
+        <input type="text" class="form-control" name="description" placeholder="" value="" required>
+    </div>
+
+    <div class="form-group">
+        <label for="id">Image Link:</label>
+        <input type="text" class="form-control" name="image-link" placeholder="" value="" required>
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+#end

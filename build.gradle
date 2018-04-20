@@ -1,0 +1,32 @@
+group 'com.aherridge'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.8.0-beta1'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+
+    compile group: 'com.sparkjava', name: 'spark-core', version: '2.7.1'
+    compile group: 'com.sparkjava', name: 'spark-template-velocity', version: '2.7.1'
+    compile group: 'org.apache.velocity', name: 'velocity', version: '1.7'
+
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+
+    compile group: 'com.google.apis', name: 'google-api-services-people', version: 'v1-rev229-1.23.0'
+    compile group: 'com.google.apis', name: 'google-api-services-books', version: 'v1-rev95-1.23.0'
+    compile group: 'com.google.apis', name: 'google-api-services-oauth2', version: 'v2-rev134-1.23.0'
+
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
+    runtime group: 'mysql', name: 'mysql-connector-java', version: '5.1.42'
+
+    compile 'com.j2html:j2html:1.2.2'
+
+    compile 'com.google.code.gson:gson:2.8.2'
+}
