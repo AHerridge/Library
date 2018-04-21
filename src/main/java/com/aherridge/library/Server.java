@@ -5,6 +5,7 @@ import com.aherridge.library.contracts.ContractController;
 import com.aherridge.library.login.GoogleLoginController;
 import com.aherridge.library.login.LoginController;
 import com.aherridge.library.permissions.PermissionsChecker;
+import com.aherridge.library.user.GoogleDirectoryUtil;
 import com.aherridge.library.util.Path;
 import com.aherridge.library.view.ViewUtil;
 import org.slf4j.Logger;
@@ -57,6 +58,7 @@ public class Server
 		get(Path.Web.BOOKS + Path.Web.ADD_BOOK, BookController.SERVE_ADD_FORM);
 		post(Path.Web.BOOKS + Path.Web.ADD_BOOK, BookController.ADD_BOOK);
 		post(Path.Web.REMOVE_CONTRACT, ContractController.REMOVE_CONTRACT);
+		get("/admin/users/", ((request, response) -> GoogleDirectoryUtil.getUserWithNameContaining(request.session().attribute("google-credential"), "dye")));
 
 		//User portion
 		get(Path.Web.DASHBOARD, (request, response) -> ViewUtil.render(request, new HashMap<>(), Path.Template.DASHBOARD));
