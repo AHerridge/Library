@@ -31,7 +31,7 @@
                 <li><a href=$WebPath.getSCAN()>Scan</a></li>
 
                 #if($adminService.isAdmin($user))
-                    <li><a href="$WebPath.getADMIN()$WebPath.getADD_ADMIN()">Manage Admins</li>
+                    <li><a href="$WebPath.getADMIN()$WebPath.getADD_ADMIN()">Manage Admins</a></li>
                 #end
             </ul>
             <ul class="nav navbar-nav navbar-right">
