@@ -4,7 +4,10 @@ import com.aherridge.library.book.BookController;
 import com.aherridge.library.contracts.ContractController;
 import com.aherridge.library.login.GoogleLoginController;
 import com.aherridge.library.login.LoginController;
+import com.aherridge.library.permissions.AdminService;
 import com.aherridge.library.permissions.PermissionsChecker;
+import com.aherridge.library.user.GoogleDirectoryUtil;
+import com.aherridge.library.user.User;
 import com.aherridge.library.util.Path;
 import com.aherridge.library.view.ViewUtil;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +35,7 @@ public class Server
 		staticFiles.location("/public/");
 		staticFiles.expireTime(600L);
 
-		before("*", Server::simpleDebug);
+		before("*", Server::debug);
 
 		//Fix urls that don't end with a slash
 		before("*", (request, response) ->
@@ -57,6 +61,21 @@ public class Server
 		get(Path.Web.BOOKS + Path.Web.ADD_BOOK, BookController.SERVE_ADD_FORM);
 		post(Path.Web.BOOKS + Path.Web.ADD_BOOK, BookController.ADD_BOOK);
 		post(Path.Web.REMOVE_CONTRACT, ContractController.REMOVE_CONTRACT);
+		get(Path.Web.ADMIN + Path.Web.ADD_ADMIN, (request, response) -> ViewUtil.render(request, new HashMap<>(), Path.Template.ADD_ADMIN));
+		post(Path.Web.ADMIN + Path.Web.ADD_ADMIN, (request, response) ->
+		{
+			Collection<User> users = GoogleDirectoryUtil.getUserWithEmail(request.session().attribute("google-credential"), request.queryParams("email"));
+			System.out.println(users);
+			if (!users.isEmpty())
+			{
+				AdminService.addAdmin(users.toArray(new User[10])[0].getId());
+				return "Success";
+			}
+			else
+			{
+				return "Failure";
+			}
+		});
 
 		//User portion
 		get(Path.Web.DASHBOARD, (request, response) -> ViewUtil.render(request, new HashMap<>(), Path.Template.DASHBOARD));

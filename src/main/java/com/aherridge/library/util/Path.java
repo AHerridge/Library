@@ -20,7 +20,9 @@ public class Path
 		public static final String AUTH = "/auth/";
 
 		@Getter
-		public static final String ADMIN = "/admin/";
+		public static final String ADMIN = "admin/";
+		@Getter
+		public static final String ADD_ADMIN = "add/";
 
 		@Getter
 		public static final String SCAN = "/scan/";
@@ -59,10 +61,9 @@ public class Path
 	public static class Template
 	{
 		public final static String DASHBOARD = "/velocity/dashboard.vm";
-		public final static String ADMIN_DASHBOARD = "/velocity/admin-dashboard.vm";
 		public final static String SCAN = "/velocity/scan.vm";
 		public static final String BOOKS_ONE = "/velocity/one.vm";
 		public static final String ADD_BOOK = "/velocity/add.vm";
-		public static final String NOT_FOUND = "/velocity/notFound.vm";
+		public static final String ADD_ADMIN = "/velocity/permissions.vm";
 	}
 }

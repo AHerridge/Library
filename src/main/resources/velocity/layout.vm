@@ -29,6 +29,10 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href=$WebPath.getSCAN()>Scan</a></li>
+
+                #if($adminService.isAdmin($user))
+                    <li><a href="$WebPath.getADMIN()$WebPath.getADD_ADMIN()">Manage Admins</li>
+                #end
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="$WebPath.getLOGOUT()"><span class="glyphicon glyphicon-log-out"></span>
