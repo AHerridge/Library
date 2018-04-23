@@ -4,17 +4,17 @@ import com.aherridge.library.provider.CashedProvider;
 import com.aherridge.library.provider.Provider;
 import com.aherridge.library.user.User;
 import com.aherridge.library.util.Path;
+import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import spark.Request;
 import spark.Response;
 
 import java.io.IOException;
 import java.util.Random;
-import java.util.UUID;
 
-import static com.aherridge.library.user.UserUtil.getCurrentUser;
 import static com.aherridge.library.user.UserUtil.setCurrentUser;
 import static com.aherridge.library.util.GoogleConsts.*;
 
@@ -25,6 +25,8 @@ public class GoogleLoginController extends LoginController
 	private static final GoogleAuthorizationCodeFlow FLOW = new GoogleAuthorizationCodeFlow.Builder(
 			HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID, CLIENT_SECRET, SCOPES).setAccessType("offline").build();
 
+	private static final String CREDENTIAL_ATTRIB = "google-credential";
+
 	public Object serveLoginPage(Request request, Response response)
 	{
 		if (getLoginDest(request) == null)
@@ -34,7 +36,7 @@ public class GoogleLoginController extends LoginController
 
 		response.redirect(
 				FLOW.newAuthorizationUrl()
-						.set("device_id", UUID.randomUUID().toString())// Math.abs(new Random().nextLong()))
+						.set("device_id", Math.abs(new Random().nextLong()))
 						.set("device_name", "device")
 						.setRedirectUri(request.url().replace("/login/", REDIRECT_URI)).build()
 		);
@@ -51,7 +53,7 @@ public class GoogleLoginController extends LoginController
 							CLIENT_ID, CLIENT_SECRET, request.queryParams("code"), request.url().replace("/login/", REDIRECT_URI)).execute();
 
 			setCurrentUser(request, USER_PROVIDER.get(tokenResponse.getAccessToken()));
-			System.out.println(getCurrentUser(request));
+			createCredentials(request, tokenResponse.getAccessToken());
 
 			String loginDest = getLoginDest(request);
 			removeLoginDest(request);
@@ -63,8 +65,23 @@ public class GoogleLoginController extends LoginController
 			e.printStackTrace();
 		}
 
-		System.out.println(getCurrentUser(request));
-
 		return null;
+	}
+
+	private void createCredentials(Request request, String accessToken)
+	{
+		GoogleCredential credential = new GoogleCredential.Builder()
+				.setJsonFactory(JSON_FACTORY)
+				.setTransport(HTTP_TRANSPORT)
+				.setClientSecrets(CLIENT_ID, CLIENT_SECRET)
+				.build()
+				.setAccessToken(accessToken);
+
+		request.session().attribute(CREDENTIAL_ATTRIB, credential);
+	}
+
+	public Credential getCredential(Request request)
+	{
+		return request.session().attribute(CREDENTIAL_ATTRIB);
 	}
 }

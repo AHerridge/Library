@@ -22,6 +22,7 @@ dependencies {
     compile group: 'com.google.apis', name: 'google-api-services-people', version: 'v1-rev229-1.23.0'
     compile group: 'com.google.apis', name: 'google-api-services-books', version: 'v1-rev95-1.23.0'
     compile group: 'com.google.apis', name: 'google-api-services-oauth2', version: 'v2-rev134-1.23.0'
+    compile group: 'com.google.apis', name: 'google-api-services-admin-directory', version: 'directory_v1-rev53-1.20.0'
 
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.10.Final'
     runtime group: 'mysql', name: 'mysql-connector-java', version: '5.1.42'

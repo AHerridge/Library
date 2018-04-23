@@ -1,0 +1,20 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<form method="post" action="/$WebPath.getADMIN()$WebPath.getADD_ADMIN()" style="text-align: center">
+    <h1>Add admin</h1>
+
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" class="form-control" name="email" placeholder="" value="" required>
+
+        <div class="form-group">
+            <label for="permission-level">Permission level:</label>
+            <select class="form-control" id="permission-level">
+                <option>Admin</option>
+            </select>
+        </div>
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+#end
