@@ -1,0 +1,15 @@
+/users
+	-get:/{id} -> {String:id, String:name, String:email, String:profileImageLink}
+	-get:/?key1=value1&key2=value2&...&keyN=valueN -> {matchingUser1, matchingUser2, ..., matchingUserN}
+
+/books
+	-get:/{id} -> {String:id, String:title, String[]:authors, String:coverImageLink}
+	-get:/?key1=value1&key2=value2&...&keyN=valueN -> {matchingBook1, matchingBook2, ..., matchingBookN}
+	-post:/add/?key1=value1&key2=value2&...&keyN=valueN
+	-delete:/{id}
+
+/contracts
+	-get:/{id} -> {String:id, String:userId, String:bookId, Date:dueDate}
+	-get:/?key1=value1&key2=value2&...&keyN=valueN -> {matchingContract1, matchingContract2, ..., matchingContractN}
+	-post:/add/?key1=value1&key2=value2&...&keyN=valueN
+	-delete:/{id}

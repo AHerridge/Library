@@ -18,9 +18,13 @@ public class PersistentList<E> extends LinkedList<E>
 		{
 			read();
 		}
-		else
+		else if (file.getParentFile().exists() || file.getParentFile().mkdirs())
 		{
 			write();
+		}
+		else
+		{
+			System.out.println("Could not create persistent file");
 		}
 	}
 

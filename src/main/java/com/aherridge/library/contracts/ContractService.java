@@ -18,7 +18,7 @@ public class ContractService
 
 	static
 	{
-		contracts = new PersistentList<>(new File("./src/main/resources/persist/contracts.json"), new TypeToken<LinkedList<Contract>>()
+		contracts = new PersistentList<>(new File("./persist/contracts.json"), new TypeToken<LinkedList<Contract>>()
 		{
 		}.getType());
 	}

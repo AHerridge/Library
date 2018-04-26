@@ -28,7 +28,7 @@ public class Server
 	public static void main(String[] args)
 	{
 		//Setup https
-		secure("./src/main/resources/keystore.jks", "openlibrary", null, "openlibrary");
+		secure("keystore.jks", "openlibrary", null, "openlibrary");
 
 		port(8080);
 

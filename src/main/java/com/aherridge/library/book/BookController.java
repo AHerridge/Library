@@ -23,7 +23,7 @@ public class BookController
 
 	static
 	{
-		manualBookProvider = new ManualBookProvider(new File("./src/main/resources/persist/manual_library.json"));
+		manualBookProvider = new ManualBookProvider(new File("./persist/manual_library.json"));
 		bookProvider = new ComboProvider<>(manualBookProvider, new CashedProvider<>(new GoogleBookProvider(), 2));
 	}
 

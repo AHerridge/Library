@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class AdminService
 {
-	private static final Collection<String> adminIds = new PersistentList<>(new File("./src/main/resources/persist/admins.json"), new TypeToken<LinkedList<String>>()
+	private static final Collection<String> adminIds = new PersistentList<>(new File("./persist/admins.json"), new TypeToken<LinkedList<String>>()
 	{
 	}.getType());
 
